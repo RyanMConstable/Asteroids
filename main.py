@@ -5,6 +5,7 @@ import pygame
 from constants import *
 from player import *
 from asteroid import *
+from asteroidfield import *
 
 def main():
     print("Starting asteroids!")
@@ -22,12 +23,14 @@ def main():
     
     player.containers = (drawable, updatable)
     Asteroid.containers = (drawable, updatable, asteroids)
+    AsteroidField.containers = (updatable)
     
     player1 = player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
+    af = AsteroidField()
     
     keep_running = True
     while keep_running:
-        
+    
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
