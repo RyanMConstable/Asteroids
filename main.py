@@ -42,22 +42,21 @@ def main():
             
         screen.fill("black")
         
-        #player1.draw(screen)
-        #player1.update(dt)
-        
         for item in updatable:
             item.update(dt)
         for item in drawable:
             item.draw(screen)
-            
+
         #Check asteroid collision
         for item in asteroids:
             if player1.collision(item):
                 print("Game Over!")
+                print(f"Score: {player1.score}")
                 keep_running = False
                 
             for bullet in bullets:
                 if bullet.collision(item):
+                    player1.score += 1
                     bullet.kill()
                     item.split()
                 
