@@ -59,7 +59,7 @@ def main():
             for bullet in bullets:
                 if bullet.collision(item):
                     bullet.kill()
-                    item.kill()
+                    item.split()
                 
         
         dt = clock.tick(60)/1000
