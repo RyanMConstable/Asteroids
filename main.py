@@ -55,6 +55,12 @@ def main():
             if player1.collision(item):
                 print("Game Over!")
                 keep_running = False
+                
+            for bullet in bullets:
+                if bullet.collision(item):
+                    bullet.kill()
+                    item.kill()
+                
         
         dt = clock.tick(60)/1000
         pygame.display.flip()
