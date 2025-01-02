@@ -41,10 +41,14 @@ def main():
     text = font.render(f"Score: {player1.score}", True, "white", "black")
     textRect = text.get_rect()
     textRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
-    #Menu Text
+    #Play button
     playButton = font.render("Play", True, "black", "white")
     playButtonRect = text.get_rect()
     playButtonRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
+    #Quit button
+    quitButton = font.render("Quit", True, "black", "white")
+    quitButtonRect = text.get_rect()
+    quitButtonRect.center = ((SCREEN_WIDTH // 2), (SCREEN_HEIGHT // 2) - 280)
     
     in_menu = True
     while in_menu:
@@ -55,6 +59,9 @@ def main():
             if ev.type == pygame.MOUSEBUTTONDOWN:
                 if SCREEN_WIDTH/2 <= mouse[0] <= SCREEN_WIDTH/2+140 and SCREEN_HEIGHT/2 <= mouse[1] <= SCREEN_HEIGHT/2+40: 
                     in_menu = False
+                if SCREEN_WIDTH/2 <= mouse[0] <= SCREEN_WIDTH/2+140 and SCREEN_HEIGHT/2-280 <= mouse[1] <= SCREEN_HEIGHT/2+40-280: 
+                    pygame.quit()
+                    quit()
 
         screen.fill("black")
         
@@ -63,50 +70,62 @@ def main():
         else: 
             pygame.draw.rect(screen,"grey",[SCREEN_WIDTH/2,SCREEN_HEIGHT/2,140,40])
             
+        if SCREEN_WIDTH/2 <= mouse[0] <= SCREEN_WIDTH/2+140 and SCREEN_HEIGHT/2-280 <= mouse[1] <= SCREEN_HEIGHT/2+40-280: 
+            pygame.draw.rect(screen,"white",[SCREEN_WIDTH/2,SCREEN_HEIGHT/2-280,140,40])   
+        else: 
+            pygame.draw.rect(screen,"grey",[SCREEN_WIDTH/2,SCREEN_HEIGHT/2-280,140,40])
+        
+        
         screen.blit(playButton, (SCREEN_WIDTH/2+50, SCREEN_HEIGHT/2))
+        screen.blit(quitButton, (SCREEN_WIDTH/2+50, SCREEN_HEIGHT/2-280))
         
-        pygame.display.flip()
+        
+        
+        #Check if in_menu set to true or false
+        #GAME LOOP
+        while not in_menu:
+        
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    return
                 
-        
-    
-    #GAME LOOP
-    keep_running = True
-    while keep_running:
-    
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                return
+            screen.fill("black")
+            screen.blit(font.render(f"Score: {player1.score}", True, "white", "black"), textRect)
+
+            for item in updatable:
+                item.update(dt)
+            for item in drawable:
+                item.draw(screen)
+
+            #Check asteroid collision
+            for item in asteroids:
+                if player1.collision(item):
+                    print("Game Over!")
+                    print(f"Score: {player1.score}")
+                    in_menu = True
+                    break
+                    
+                for bullet in bullets:
+                    if bullet.collision(item):
+                        player1.score += 1
+                        bullet.kill()
+                        item.split()
+                    
             
-        screen.fill("black")
-        screen.blit(font.render(f"Score: {player1.score}", True, "white", "black"), textRect)
-
-        for item in updatable:
-            item.update(dt)
-        for item in drawable:
-            item.draw(screen)
-
-        #Check asteroid collision
-        for item in asteroids:
-            if player1.collision(item):
-                print("Game Over!")
-                print(f"Score: {player1.score}")
-                keep_running = False
-                pygame.quit()
-                quit()
-                
-            for bullet in bullets:
-                if bullet.collision(item):
-                    player1.score += 1
-                    bullet.kill()
-                    item.split()
-                
+            dt = clock.tick(60)/1000
+            pygame.display.flip()
+        #END GAME LOOP
+        player1.score = 0
+        #End menu loop
         
-        dt = clock.tick(60)/1000
+        
+        
         pygame.display.flip()
-    #END GAME LOOP
 
 
 
 if __name__ == "__main__":
     main()
+    pygame.quit()
+    quit()
 
