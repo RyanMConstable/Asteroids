@@ -20,11 +20,6 @@ def main():
     clock = pygame.time.Clock()
     dt = 0
     
-    font = pygame.font.Font('freesansbold.ttf', 32)
-    text = font.render('Hello world!', True, "green", "blue")
-    textRect = text.get_rect()
-    textRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
-    
     #Create groups that are able to be added to
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
@@ -40,6 +35,13 @@ def main():
     player1 = player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
     af = AsteroidField()
     
+    
+    #Info bar section
+    font = pygame.font.Font('freesansbold.ttf', 32)
+    text = font.render(f"Score: {player1.score}", True, "white", "black")
+    textRect = text.get_rect()
+    textRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
+    
     keep_running = True
     while keep_running:
     
@@ -48,7 +50,7 @@ def main():
                 return
             
         screen.fill("black")
-        screen.blit(text, textRect)
+        screen.blit(font.render(f"Score: {player1.score}", True, "white", "black"), textRect)
 
         for item in updatable:
             item.update(dt)
@@ -61,6 +63,8 @@ def main():
                 print("Game Over!")
                 print(f"Score: {player1.score}")
                 keep_running = False
+                pygame.quit()
+                quit()
                 
             for bullet in bullets:
                 if bullet.collision(item):
