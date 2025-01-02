@@ -36,12 +36,40 @@ def main():
     af = AsteroidField()
     
     
-    #Info bar section
+    #Info Game Section
     font = pygame.font.Font('freesansbold.ttf', 32)
     text = font.render(f"Score: {player1.score}", True, "white", "black")
     textRect = text.get_rect()
     textRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
+    #Menu Text
+    playButton = font.render("Play", True, "black", "white")
+    playButtonRect = text.get_rect()
+    playButtonRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
     
+    in_menu = True
+    while in_menu:
+        mouse = pygame.mouse.get_pos()
+        for ev in pygame.event.get():
+            if ev.type == pygame.QUIT:
+                pygame.quit()
+            if ev.type == pygame.MOUSEBUTTONDOWN:
+                if SCREEN_WIDTH/2 <= mouse[0] <= SCREEN_WIDTH/2+140 and SCREEN_HEIGHT/2 <= mouse[1] <= SCREEN_HEIGHT/2+40: 
+                    in_menu = False
+
+        screen.fill("black")
+        
+        if SCREEN_WIDTH/2 <= mouse[0] <= SCREEN_WIDTH/2+140 and SCREEN_HEIGHT/2 <= mouse[1] <= SCREEN_HEIGHT/2+40: 
+            pygame.draw.rect(screen,"white",[SCREEN_WIDTH/2,SCREEN_HEIGHT/2,140,40])   
+        else: 
+            pygame.draw.rect(screen,"grey",[SCREEN_WIDTH/2,SCREEN_HEIGHT/2,140,40])
+            
+        screen.blit(playButton, (SCREEN_WIDTH/2+50, SCREEN_HEIGHT/2))
+        
+        pygame.display.flip()
+                
+        
+    
+    #GAME LOOP
     keep_running = True
     while keep_running:
     
@@ -75,7 +103,9 @@ def main():
         
         dt = clock.tick(60)/1000
         pygame.display.flip()
-        
+    #END GAME LOOP
+
+
 
 if __name__ == "__main__":
     main()
