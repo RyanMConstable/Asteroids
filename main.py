@@ -15,8 +15,15 @@ def main():
     
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    #Sets window name
+    pygame.display.set_caption('Asteroids!')
     clock = pygame.time.Clock()
     dt = 0
+    
+    font = pygame.font.Font('freesansbold.ttf', 32)
+    text = font.render('Hello world!', True, "green", "blue")
+    textRect = text.get_rect()
+    textRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
     
     #Create groups that are able to be added to
     updatable = pygame.sprite.Group()
@@ -41,7 +48,8 @@ def main():
                 return
             
         screen.fill("black")
-        
+        screen.blit(text, textRect)
+
         for item in updatable:
             item.update(dt)
         for item in drawable:
