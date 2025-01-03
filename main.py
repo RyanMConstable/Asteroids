@@ -40,7 +40,7 @@ def main():
     font = pygame.font.Font('freesansbold.ttf', 32)
     text = font.render(f"Score: {player1.score}", True, "white", "black")
     textRect = text.get_rect()
-    textRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
+    textRect.center = (SCREEN_WIDTH, SCREEN_HEIGHT)
     #Play button
     playButton = font.render("Play", True, "black", "white")
     playButtonRect = text.get_rect()
