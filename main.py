@@ -14,7 +14,7 @@ def main():
     print(f"Screen height: {SCREEN_HEIGHT}")
     
     pygame.init()
-    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.FULLSCREEN)
     #Sets window name
     pygame.display.set_caption('Asteroids!')
     clock = pygame.time.Clock()
