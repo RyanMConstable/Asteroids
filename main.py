@@ -40,14 +40,14 @@ def main():
     font = pygame.font.Font('freesansbold.ttf', 32)
     text = font.render(f"Score: {player1.score}", True, "white", "black")
     textRect = text.get_rect()
-    textRect.center = (SCREEN_WIDTH, SCREEN_HEIGHT)
+    textRect.center = (140,20)
     #Play button
     playButton = font.render("Play", True, "black", "white")
-    playButtonRect = text.get_rect()
+    playButtonRect = playButton.get_rect()
     playButtonRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
     #Quit button
     quitButton = font.render("Quit", True, "black", "white")
-    quitButtonRect = text.get_rect()
+    quitButtonRect = quitButton.get_rect()
     quitButtonRect.center = ((SCREEN_WIDTH // 2), (SCREEN_HEIGHT // 2) - 280)
     
     in_menu = True
@@ -56,29 +56,26 @@ def main():
         for ev in pygame.event.get():
             if ev.type == pygame.QUIT:
                 pygame.quit()
+                exit(0)
             if ev.type == pygame.MOUSEBUTTONDOWN:
                 if SCREEN_WIDTH/2 <= mouse[0] <= SCREEN_WIDTH/2+140 and SCREEN_HEIGHT/2 <= mouse[1] <= SCREEN_HEIGHT/2+40: 
                     in_menu = False
                 if SCREEN_WIDTH/2 <= mouse[0] <= SCREEN_WIDTH/2+140 and SCREEN_HEIGHT/2-280 <= mouse[1] <= SCREEN_HEIGHT/2+40-280: 
                     pygame.quit()
-                    quit()
+                    exit(0)
 
         screen.fill("black")
         
         if SCREEN_WIDTH/2 <= mouse[0] <= SCREEN_WIDTH/2+140 and SCREEN_HEIGHT/2 <= mouse[1] <= SCREEN_HEIGHT/2+40: 
-            pygame.draw.rect(screen,"white",[SCREEN_WIDTH/2,SCREEN_HEIGHT/2,140,40])   
+            screen.blit(playButton, (SCREEN_WIDTH/2+50, SCREEN_HEIGHT/2))   
         else: 
-            pygame.draw.rect(screen,"grey",[SCREEN_WIDTH/2,SCREEN_HEIGHT/2,140,40])
-            
+            screen.blit(playButton, (SCREEN_WIDTH/2+50, SCREEN_HEIGHT/2))
+        
         if SCREEN_WIDTH/2 <= mouse[0] <= SCREEN_WIDTH/2+140 and SCREEN_HEIGHT/2-280 <= mouse[1] <= SCREEN_HEIGHT/2+40-280: 
-            pygame.draw.rect(screen,"white",[SCREEN_WIDTH/2,SCREEN_HEIGHT/2-280,140,40])   
+            screen.blit(quitButton, (SCREEN_WIDTH/2+50, SCREEN_HEIGHT/2-280))   
         else: 
-            pygame.draw.rect(screen,"grey",[SCREEN_WIDTH/2,SCREEN_HEIGHT/2-280,140,40])
-        
-        
-        screen.blit(playButton, (SCREEN_WIDTH/2+50, SCREEN_HEIGHT/2))
-        screen.blit(quitButton, (SCREEN_WIDTH/2+50, SCREEN_HEIGHT/2-280))
-        
+            screen.blit(quitButton, (SCREEN_WIDTH/2+50, SCREEN_HEIGHT/2-280))
+            #pygame.draw.rect(screen,"grey",[SCREEN_WIDTH/2,SCREEN_HEIGHT/2-280,140,40])
         
         
         #Check if in_menu set to true or false
@@ -127,5 +124,4 @@ def main():
 if __name__ == "__main__":
     main()
     pygame.quit()
-    quit()
 
