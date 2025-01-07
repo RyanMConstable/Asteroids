@@ -77,6 +77,8 @@ def main():
             for bullet in bullets:
                 if bullet.collision(item):
                     player1.score += 1
+                    af.score += 1
+                    af.boss_timer += 1
                     bullet.kill()
                     item.split()
                 
