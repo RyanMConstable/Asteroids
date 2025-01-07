@@ -54,9 +54,8 @@ def main():
     while in_menu:
         mouse = pygame.mouse.get_pos()
         for ev in pygame.event.get():
-            if ev.type == pygame.QUIT:
-                pygame.quit()
-                exit(0)
+            if ev.type == pygame.QUIT or ev.type == pygame.K_ESCAPE:
+                return
             if ev.type == pygame.MOUSEBUTTONDOWN:
                 if SCREEN_WIDTH/2 <= mouse[0] <= SCREEN_WIDTH/2+140 and SCREEN_HEIGHT/2 <= mouse[1] <= SCREEN_HEIGHT/2+40: 
                     in_menu = False
@@ -118,7 +117,6 @@ def main():
         for asteroid in asteroids:
             asteroid.kill()
         
-        pygame.time.wait(25)
         dt_menu = clock.tick(60)/1000
         player1.score = 0
         #End menu loop
