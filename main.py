@@ -46,12 +46,12 @@ def main():
         
     #Check if in_menu set to true or false
     #GAME LOOP
-    in_main_menu = True
+    in_main_menu = False
     gaming = True
     while gaming:
         #This is the main menu of the game
         while in_main_menu:
-            in_main_menu = main_menu()
+            in_main_menu = main_menu(screen)
         #Check the keys to see if the user wants to end the game
         keys = pygame.key.get_pressed()
         if keys[pygame.K_ESCAPE]:
@@ -85,7 +85,9 @@ def main():
                     af.score += 1
                     af.boss_timer += 1
                     bullet.kill()
-                    item.split()
+                    item.hp -= 1
+                    if item.hp == 0:
+                        item.split()
                 
         
         dt = clock.tick(60)/1000
