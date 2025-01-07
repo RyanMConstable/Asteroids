@@ -54,7 +54,7 @@ def main():
     while in_menu:
         mouse = pygame.mouse.get_pos()
         for ev in pygame.event.get():
-            if ev.type == pygame.QUIT or ev.type == pygame.K_ESCAPE:
+            if ev.type == pygame.QUIT or ev.type == pygame.K_b:
                 return
             if ev.type == pygame.MOUSEBUTTONDOWN:
                 if SCREEN_WIDTH/2 <= mouse[0] <= SCREEN_WIDTH/2+140 and SCREEN_HEIGHT/2 <= mouse[1] <= SCREEN_HEIGHT/2+40: 
@@ -64,15 +64,9 @@ def main():
 
         screen.fill("black")
         
-        if SCREEN_WIDTH/2 <= mouse[0] <= SCREEN_WIDTH/2+140 and SCREEN_HEIGHT/2 <= mouse[1] <= SCREEN_HEIGHT/2+40: 
-            screen.blit(playButton, (SCREEN_WIDTH/2+50, SCREEN_HEIGHT/2))   
-        else: 
-            screen.blit(playButton, (SCREEN_WIDTH/2+50, SCREEN_HEIGHT/2))
+        screen.blit(playButton, (SCREEN_WIDTH/2+50, SCREEN_HEIGHT/2))
         
-        if SCREEN_WIDTH/2 <= mouse[0] <= SCREEN_WIDTH/2+140 and SCREEN_HEIGHT/2-280 <= mouse[1] <= SCREEN_HEIGHT/2+40-280: 
-            screen.blit(quitButton, (SCREEN_WIDTH/2+50, SCREEN_HEIGHT/2-280))   
-        else: 
-            screen.blit(quitButton, (SCREEN_WIDTH/2+50, SCREEN_HEIGHT/2-280))
+        screen.blit(quitButton, (SCREEN_WIDTH/2+50, SCREEN_HEIGHT/2-280))   
             #pygame.draw.rect(screen,"grey",[SCREEN_WIDTH/2,SCREEN_HEIGHT/2-280,140,40])
         
         
@@ -81,7 +75,7 @@ def main():
         while not in_menu:
         
             for event in pygame.event.get():
-                if event.type == pygame.QUIT or event.type == pygame.K_ESCAPE:
+                if event.type == pygame.QUIT:
                     return
                 
             screen.fill("black")
