@@ -1,7 +1,7 @@
 # this allows us to use code from
 # the open-source pygame library
 # throughout this file
-import pygame
+import pygame, time
 from constants import *
 from player import *
 from asteroid import *
@@ -18,7 +18,7 @@ def main():
     #Sets window name
     pygame.display.set_caption('Asteroids!')
     clock = pygame.time.Clock()
-    dt = 0
+    dt, dt_menu = 0, 0
     
     #Create groups that are able to be added to
     updatable = pygame.sprite.Group()
@@ -61,8 +61,7 @@ def main():
                 if SCREEN_WIDTH/2 <= mouse[0] <= SCREEN_WIDTH/2+140 and SCREEN_HEIGHT/2 <= mouse[1] <= SCREEN_HEIGHT/2+40: 
                     in_menu = False
                 if SCREEN_WIDTH/2 <= mouse[0] <= SCREEN_WIDTH/2+140 and SCREEN_HEIGHT/2-280 <= mouse[1] <= SCREEN_HEIGHT/2+40-280: 
-                    pygame.quit()
-                    exit(0)
+                    return
 
         screen.fill("black")
         
@@ -97,7 +96,7 @@ def main():
             #Check asteroid collision
             for item in asteroids:
                 if player1.collision(item):
-                    print("Game Over!")
+                    print("Game Over! =================================================")
                     print(f"Score: {player1.score}")
                     in_menu = True
                     break
@@ -112,10 +111,17 @@ def main():
             dt = clock.tick(60)/1000
             pygame.display.flip()
         #END GAME LOOP
+        
+        
+        for bullet in bullets:
+            bullet.kill()
+        for asteroid in asteroids:
+            asteroid.kill()
+        
+        pygame.time.wait(25)
+        dt_menu = clock.tick(60)/1000
         player1.score = 0
         #End menu loop
-        
-        
         
         pygame.display.flip()
 
