@@ -47,11 +47,14 @@ def main():
     #GAME LOOP
     gaming = True
     while gaming:
+        #Check the keys to see if the user wants to end the game
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_ESCAPE]:
+            end(player1.score)
+            return
         #Check for specific events like exiting the game
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                return
-            if event.type == pygame.K_9:
                 return
             
         screen.fill("black")
@@ -67,8 +70,7 @@ def main():
         for item in asteroids:
             #Player collision with asteroid
             if player1.collision(item):
-                print("Game Over!")
-                print(f"Score: {player1.score}")
+                end(player1.score)
                 return
             
             #Check for every bullet to see if any hit an asteroid
@@ -82,7 +84,8 @@ def main():
         dt = clock.tick(60)/1000
         pygame.display.flip()
 
-
+def end(score):
+    print(f"Game over! You had a score of {score}!")
 
 if __name__ == "__main__":
     main()
