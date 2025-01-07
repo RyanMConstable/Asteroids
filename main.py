@@ -18,7 +18,7 @@ def main():
     #Sets window name
     pygame.display.set_caption('Asteroids!')
     clock = pygame.time.Clock()
-    dt, dt_menu = 0, 0
+    dt = 0
     
     #Create groups that are able to be added to
     updatable = pygame.sprite.Group()
@@ -47,14 +47,17 @@ def main():
     #GAME LOOP
     gaming = True
     while gaming:
-    
+        #Check for specific events like exiting the game
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                return
+            if event.type == pygame.K_9:
                 return
             
         screen.fill("black")
         screen.blit(font.render(f"Score: {player1.score}", True, "white", "black"), textRect)
 
+        #Update and draw all items in the updatable and drawable groups
         for item in updatable:
             item.update(dt)
         for item in drawable:
@@ -62,11 +65,13 @@ def main():
 
         #Check asteroid collision
         for item in asteroids:
+            #Player collision with asteroid
             if player1.collision(item):
-                print("Game Over! =================================================")
+                print("Game Over!")
                 print(f"Score: {player1.score}")
                 return
-                
+            
+            #Check for every bullet to see if any hit an asteroid
             for bullet in bullets:
                 if bullet.collision(item):
                     player1.score += 1
