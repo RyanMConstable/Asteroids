@@ -49,72 +49,42 @@ def main():
     quitButton = font.render("Quit", True, "black", "white")
     quitButtonRect = quitButton.get_rect()
     quitButtonRect.center = ((SCREEN_WIDTH // 2), (SCREEN_HEIGHT // 2) - 280)
+     
+        
+        
+    #Check if in_menu set to true or false
+    #GAME LOOP
+    gaming = True
+    while gaming:
     
-    in_menu = True
-    while in_menu:
-        mouse = pygame.mouse.get_pos()
-        for ev in pygame.event.get():
-            if ev.type == pygame.QUIT or ev.type == pygame.K_b:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
                 return
-            if ev.type == pygame.MOUSEBUTTONDOWN:
-                if SCREEN_WIDTH/2 <= mouse[0] <= SCREEN_WIDTH/2+140 and SCREEN_HEIGHT/2 <= mouse[1] <= SCREEN_HEIGHT/2+40: 
-                    in_menu = False
-                if SCREEN_WIDTH/2 <= mouse[0] <= SCREEN_WIDTH/2+140 and SCREEN_HEIGHT/2-280 <= mouse[1] <= SCREEN_HEIGHT/2+40-280: 
-                    return
-
-        screen.fill("black")
-        
-        screen.blit(playButton, (SCREEN_WIDTH/2+50, SCREEN_HEIGHT/2))
-        
-        screen.blit(quitButton, (SCREEN_WIDTH/2+50, SCREEN_HEIGHT/2-280))   
-            #pygame.draw.rect(screen,"grey",[SCREEN_WIDTH/2,SCREEN_HEIGHT/2-280,140,40])
-        
-        
-        #Check if in_menu set to true or false
-        #GAME LOOP
-        while not in_menu:
-        
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    return
-                
-            screen.fill("black")
-            screen.blit(font.render(f"Score: {player1.score}", True, "white", "black"), textRect)
-
-            for item in updatable:
-                item.update(dt)
-            for item in drawable:
-                item.draw(screen)
-
-            #Check asteroid collision
-            for item in asteroids:
-                if player1.collision(item):
-                    print("Game Over! =================================================")
-                    print(f"Score: {player1.score}")
-                    in_menu = True
-                    break
-                    
-                for bullet in bullets:
-                    if bullet.collision(item):
-                        player1.score += 1
-                        bullet.kill()
-                        item.split()
-                    
             
-            dt = clock.tick(60)/1000
-            pygame.display.flip()
-        #END GAME LOOP
+        screen.fill("black")
+        screen.blit(font.render(f"Score: {player1.score}", True, "white", "black"), textRect)
+
+        for item in updatable:
+            item.update(dt)
+        for item in drawable:
+            item.draw(screen)
+
+        #Check asteroid collision
+        for item in asteroids:
+            if player1.collision(item):
+                print("Game Over! =================================================")
+                print(f"Score: {player1.score}")
+                gaming = False
+                break
+                
+            for bullet in bullets:
+                if bullet.collision(item):
+                    player1.score += 1
+                    bullet.kill()
+                    item.split()
+                
         
-        
-        for bullet in bullets:
-            bullet.kill()
-        for asteroid in asteroids:
-            asteroid.kill()
-        
-        dt_menu = clock.tick(60)/1000
-        player1.score = 0
-        #End menu loop
-        
+        dt = clock.tick(60)/1000
         pygame.display.flip()
 
 
