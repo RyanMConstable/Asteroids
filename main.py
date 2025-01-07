@@ -40,7 +40,7 @@ def main():
     font = pygame.font.Font('freesansbold.ttf', 32)
     text = font.render(f"Score: {player1.score}", True, "white", "black")
     textRect = text.get_rect()
-    textRect.center = (140,20)
+    textRect.center = (80,20)
     #Play button
     playButton = font.render("Play", True, "black", "white")
     playButtonRect = playButton.get_rect()
@@ -74,8 +74,7 @@ def main():
             if player1.collision(item):
                 print("Game Over! =================================================")
                 print(f"Score: {player1.score}")
-                gaming = False
-                break
+                return
                 
             for bullet in bullets:
                 if bullet.collision(item):
@@ -92,4 +91,5 @@ def main():
 if __name__ == "__main__":
     main()
     pygame.quit()
+    quit()
 
