@@ -7,6 +7,7 @@ from player import *
 from asteroid import *
 from asteroidfield import *
 from shot import *
+from menu import main_menu
 
 def main():
     print("Starting asteroids!")
@@ -45,8 +46,12 @@ def main():
         
     #Check if in_menu set to true or false
     #GAME LOOP
+    in_main_menu = True
     gaming = True
     while gaming:
+        #This is the main menu of the game
+        while in_main_menu:
+            in_main_menu = main_menu()
         #Check the keys to see if the user wants to end the game
         keys = pygame.key.get_pressed()
         if keys[pygame.K_ESCAPE]:
@@ -91,6 +96,7 @@ def end(score):
 
 if __name__ == "__main__":
     main()
+    pygame.display.quit()
     pygame.quit()
     quit()
 
