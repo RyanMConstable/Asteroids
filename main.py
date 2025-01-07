@@ -41,16 +41,7 @@ def main():
     text = font.render(f"Score: {player1.score}", True, "white", "black")
     textRect = text.get_rect()
     textRect.center = (80,20)
-    #Play button
-    playButton = font.render("Play", True, "black", "white")
-    playButtonRect = playButton.get_rect()
-    playButtonRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
-    #Quit button
-    quitButton = font.render("Quit", True, "black", "white")
-    quitButtonRect = quitButton.get_rect()
-    quitButtonRect.center = ((SCREEN_WIDTH // 2), (SCREEN_HEIGHT // 2) - 280)
      
-        
         
     #Check if in_menu set to true or false
     #GAME LOOP
