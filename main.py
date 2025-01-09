@@ -32,13 +32,15 @@ def main_menu(in_main_menu, dt):
             
         #Find button pressed
         mouse = pygame.mouse.get_pos()
-        print(f"Mouse {mouse} Top {playRect.top} Bottom {playRect.bottom}")
         if mouse[1] < playRect.bottom and mouse[1] > playRect.top and mouse[0] < playRect.right and mouse[0] > playRect.left and pygame.mouse.get_pressed()[0]:
             in_main_menu = False
+        if mouse[1] < textRect.bottom and mouse[1] > textRect.top and mouse[0] < textRect.right and mouse[0] > textRect.left and pygame.mouse.get_pressed()[0]:
+            in_main_menu = False
+            game_loop = False
             
         #Check keys pressed
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_SPACE]:
+        if keys[pygame.K_RETURN]:
             in_main_menu = False
         if keys[pygame.K_ESCAPE]:
             in_main_menu = False
