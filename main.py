@@ -19,6 +19,10 @@ def main_menu(in_main_menu, dt):
     playRect = text.get_rect()
     playRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 - 40)
     
+    title = font.render(f"ASTEROIDS!", True, "black", "grey")
+    titleRect = text.get_rect()
+    titleRect.center = (SCREEN_WIDTH // 2, 100)
+    
     #Main menu loop
     game_loop = True
     while in_main_menu:
@@ -26,6 +30,7 @@ def main_menu(in_main_menu, dt):
         #Print buttons to screen
         screen.blit(text, textRect)
         screen.blit(play, playRect)
+        screen.blit(title, titleRect)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
