@@ -7,19 +7,15 @@ from player import *
 from asteroid import *
 from asteroidfield import *
 from shot import *
-from menu import main_menu
+
 
 def main():
     print("Starting asteroids!")
     print(f"Screen width: {SCREEN_WIDTH}")
     print(f"Screen height: {SCREEN_HEIGHT}")
     
-    pygame.init()
-    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.FULLSCREEN)
+    #pygame.FULLSCREEN
     #Sets window name
-    pygame.display.set_caption('Asteroids!')
-    clock = pygame.time.Clock()
-    dt = 0
     
     #Create groups that are able to be added to
     updatable = pygame.sprite.Group()
@@ -49,9 +45,24 @@ def main():
     in_main_menu = True
     gaming = True
     while gaming:
-        #This is the main menu of the game
+        
+        #Main menu loop
         while in_main_menu:
-            in_main_menu = main_menu(screen)
+            screen.fill("purple")
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    return
+            keys = pygame.key.get_pressed()
+            if keys[pygame.K_SPACE]:
+                in_main_menu = False
+            dt = clock.tick(FPS) / 1000
+            pygame.display.flip()
+            
+        
+        
+        #This is the main menu of the game
+        screen.fill("black")
+            
         #Check the keys to see if the user wants to end the game
         keys = pygame.key.get_pressed()
         if keys[pygame.K_ESCAPE]:
@@ -62,7 +73,6 @@ def main():
             if event.type == pygame.QUIT:
                 return
             
-        screen.fill("black")
         screen.blit(font.render(f"Score: {player1.score}", True, "white", "black"), textRect)
 
         #Update and draw all items in the updatable and drawable groups
@@ -90,13 +100,19 @@ def main():
                         item.split()
                 
         
-        dt = clock.tick(60)/1000
+        dt = clock.tick(FPS) / 1000
         pygame.display.flip()
 
 def end(score):
     print(f"Game over! You had a score of {score}!")
 
 if __name__ == "__main__":
+    pygame.init()
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    pygame.display.set_caption('Asteroids!')
+    clock = pygame.time.Clock()
+    dt = 0
+    
     main()
     pygame.display.quit()
     pygame.quit()
