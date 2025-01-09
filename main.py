@@ -10,15 +10,31 @@ from shot import *
 
 def main_menu(in_main_menu, dt):
     #Create rect objects for play, quit, and the game title
+    font = pygame.font.Font('freesansbold.ttf', 32)
+    text = font.render(f"Exit", True, "black", "white")
+    textRect = text.get_rect()
+    textRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 40)
     
+    play = font.render(f"Play", True, "black", "white")
+    playRect = text.get_rect()
+    playRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 - 40)
     
     #Main menu loop
     game_loop = True
     while in_main_menu:
         screen.fill("grey")
+        #Print buttons to screen
+        screen.blit(text, textRect)
+        screen.blit(play, playRect)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
+            
+        #Find button pressed
+        mouse = pygame.mouse.get_pos()
+        print(f"Mouse {mouse} Top {playRect.top} Bottom {playRect.bottom}")
+        if mouse[1] < playRect.bottom and mouse[1] > playRect.top and mouse[0] < playRect.right and mouse[0] > playRect.left and pygame.mouse.get_pressed()[0]:
+            in_main_menu = False
             
         #Check keys pressed
         keys = pygame.key.get_pressed()
