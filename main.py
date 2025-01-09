@@ -46,7 +46,7 @@ def main():
         
     #Check if in_menu set to true or false
     #GAME LOOP
-    in_main_menu = False
+    in_main_menu = True
     gaming = True
     while gaming:
         #This is the main menu of the game
