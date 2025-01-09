@@ -9,18 +9,29 @@ from asteroidfield import *
 from shot import *
 
 def main_menu(in_main_menu, dt):
+    #Create rect objects for play, quit, and the game title
+    
+    
     #Main menu loop
+    game_loop = True
     while in_main_menu:
         screen.fill("grey")
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
+            
+        #Check keys pressed
         keys = pygame.key.get_pressed()
         if keys[pygame.K_SPACE]:
             in_main_menu = False
+        if keys[pygame.K_ESCAPE]:
+            in_main_menu = False
+            game_loop = False
+        
+        #Update time and flip the screen
         dt = clock.tick(FPS) / 1000
         pygame.display.flip()
-    return False
+    return in_main_menu, game_loop
 
 def main(dt):
     print("Starting asteroids!")
@@ -61,7 +72,7 @@ def main(dt):
         
         #Main menu loop
         if in_main_menu:
-            in_main_menu = main_menu(in_main_menu, dt)
+            in_main_menu, gaming = main_menu(in_main_menu, dt)
             
         
         
