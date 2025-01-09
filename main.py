@@ -7,6 +7,7 @@ from player import *
 from asteroid import *
 from asteroidfield import *
 from shot import *
+import os
 
 def main_menu(in_main_menu, dt):
     #Create rect objects for play, quit, and the game title
@@ -15,13 +16,17 @@ def main_menu(in_main_menu, dt):
     textRect = text.get_rect()
     textRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 40)
     
-    play = font.render(f"Play", True, "black", "white")
-    playRect = text.get_rect()
-    playRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 - 40)
-    
     title = font.render(f"ASTEROIDS!", True, "black", "grey")
     titleRect = text.get_rect()
     titleRect.center = (SCREEN_WIDTH // 2, 100)
+    
+    start_img = pygame.image.load("start_button.png")
+    start_rect = start_img.get_rect()
+    start_rect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 - 40)
+    
+    start_img_hover = pygame.image.load("start_button_hover.png")
+    start_rect_hover = start_img.get_rect()
+    start_rect_hover.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 - 40)
     
     #Main menu loop
     game_loop = True
@@ -29,16 +34,20 @@ def main_menu(in_main_menu, dt):
         screen.fill("grey")
         #Print buttons to screen
         screen.blit(text, textRect)
-        screen.blit(play, playRect)
         screen.blit(title, titleRect)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
             
-        #Find button pressed
+        
         mouse = pygame.mouse.get_pos()
-        if mouse[1] < playRect.bottom and mouse[1] > playRect.top and mouse[0] < playRect.right and mouse[0] > playRect.left and pygame.mouse.get_pressed()[0]:
-            in_main_menu = False
+        if mouse[1] < start_rect.bottom and mouse[1] > start_rect.top and mouse[0] < start_rect.right and mouse[0] > start_rect.left:
+            screen.blit(start_img_hover, start_rect_hover)
+            if pygame.mouse.get_pressed()[0]:
+                in_main_menu = False
+        else:
+            screen.blit(start_img, start_rect)
+            
         if mouse[1] < textRect.bottom and mouse[1] > textRect.top and mouse[0] < textRect.right and mouse[0] > textRect.left and pygame.mouse.get_pressed()[0]:
             in_main_menu = False
             game_loop = False
