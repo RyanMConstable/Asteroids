@@ -12,28 +12,35 @@ import os
 def main_menu(in_main_menu, dt):
     #Create rect objects for play, quit, and the game title
     font = pygame.font.Font('freesansbold.ttf', 32)
-    text = font.render(f"Exit", True, "black", "white")
-    textRect = text.get_rect()
-    textRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 40)
     
-    title = font.render(f"ASTEROIDS!", True, "black", "grey")
-    titleRect = text.get_rect()
-    titleRect.center = (SCREEN_WIDTH // 2, 100)
+    title = font.render(f"ASTEROIDS", True, "black", "grey")
+    titleRect = title.get_rect()
+    titleRect.center = (SCREEN_WIDTH // 2, 250)
     
-    start_img = pygame.image.load("start_button.png")
+    
+    #START AND QUIT BUTTONS
+    start_img = pygame.image.load("images/start_button.png")
     start_rect = start_img.get_rect()
     start_rect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 - 40)
     
-    start_img_hover = pygame.image.load("start_button_hover.png")
+    start_img_hover = pygame.image.load("images/start_button_hover.png")
     start_rect_hover = start_img.get_rect()
     start_rect_hover.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 - 40)
+    
+    quit_img = pygame.image.load("images/quit_button.png")
+    quit_rect = quit_img.get_rect()
+    quit_rect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 40)
+    
+    quit_img_hover = pygame.image.load("images/quit_button_hover.png")
+    quit_rect_hover = quit_img_hover.get_rect()
+    quit_rect_hover.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 40)
+    #END START AND QUIT BUTTONS
     
     #Main menu loop
     game_loop = True
     while in_main_menu:
         screen.fill("grey")
         #Print buttons to screen
-        screen.blit(text, textRect)
         screen.blit(title, titleRect)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -48,9 +55,13 @@ def main_menu(in_main_menu, dt):
         else:
             screen.blit(start_img, start_rect)
             
-        if mouse[1] < textRect.bottom and mouse[1] > textRect.top and mouse[0] < textRect.right and mouse[0] > textRect.left and pygame.mouse.get_pressed()[0]:
-            in_main_menu = False
-            game_loop = False
+        if mouse[1] < quit_rect.bottom and mouse[1] > quit_rect.top and mouse[0] < quit_rect.right and mouse[0] > quit_rect.left:
+            screen.blit(quit_img_hover, quit_rect_hover)
+            if pygame.mouse.get_pressed()[0]:
+                in_main_menu = False
+                game_loop = False
+        else:
+            screen.blit(quit_img, quit_rect)
             
         #Check keys pressed
         keys = pygame.key.get_pressed()
