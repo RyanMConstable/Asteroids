@@ -8,8 +8,21 @@ from asteroid import *
 from asteroidfield import *
 from shot import *
 
+def main_menu(in_main_menu, dt):
+    #Main menu loop
+    while in_main_menu:
+        screen.fill("grey")
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                return
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_SPACE]:
+            in_main_menu = False
+        dt = clock.tick(FPS) / 1000
+        pygame.display.flip()
+    return False
 
-def main():
+def main(dt):
     print("Starting asteroids!")
     print(f"Screen width: {SCREEN_WIDTH}")
     print(f"Screen height: {SCREEN_HEIGHT}")
@@ -47,16 +60,8 @@ def main():
     while gaming:
         
         #Main menu loop
-        while in_main_menu:
-            screen.fill("purple")
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    return
-            keys = pygame.key.get_pressed()
-            if keys[pygame.K_SPACE]:
-                in_main_menu = False
-            dt = clock.tick(FPS) / 1000
-            pygame.display.flip()
+        if in_main_menu:
+            in_main_menu = main_menu(in_main_menu, dt)
             
         
         
@@ -113,7 +118,7 @@ if __name__ == "__main__":
     clock = pygame.time.Clock()
     dt = 0
     
-    main()
+    main(dt)
     pygame.display.quit()
     pygame.quit()
     quit()
