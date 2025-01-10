@@ -165,7 +165,10 @@ def main(dt):
                 item.kill()
             for bullet in bullets:
                 bullet.kill()
-        
+            player1.kill()
+            player1 = player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
+            clean_board = False
+            
         dt = clock.tick(FPS) / 1000
         pygame.display.flip()
 
