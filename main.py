@@ -10,6 +10,7 @@ from shot import *
 import os
 
 def main_menu(in_main_menu, dt):
+    print("Entering main loop")
     #Create rect objects for play, quit, and the game title
     font = pygame.font.Font('freesansbold.ttf', 32)
     
@@ -109,6 +110,7 @@ def main(dt):
         
     #Check if in_menu set to true or false
     #GAME LOOP
+    clean_board = False
     in_main_menu = True
     gaming = True
     while gaming:
@@ -116,7 +118,6 @@ def main(dt):
         #Main menu loop
         if in_main_menu:
             in_main_menu, gaming = main_menu(in_main_menu, dt)
-            
         
         
         #This is the main menu of the game
@@ -145,7 +146,8 @@ def main(dt):
             #Player collision with asteroid
             if player1.collision(item):
                 end(player1.score)
-                return
+                in_main_menu = True
+                clean_board = True
             
             #Check for every bullet to see if any hit an asteroid
             for bullet in bullets:
@@ -157,7 +159,12 @@ def main(dt):
                     item.hp -= 1
                     if item.hp == 0:
                         item.split()
-                
+        
+        if clean_board:
+            for item in asteroids:
+                item.kill()
+            for bullet in bullets:
+                bullet.kill()
         
         dt = clock.tick(FPS) / 1000
         pygame.display.flip()
