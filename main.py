@@ -105,7 +105,8 @@ def main(dt):
     font = pygame.font.Font('freesansbold.ttf', 32)
     text = font.render(f"Score: {player1.score}", True, "white", "black")
     textRect = text.get_rect()
-    textRect.center = (80,20)
+    textRect.top = 0
+    textRect.left = 0
      
         
     #Check if in_menu set to true or false
