@@ -7,6 +7,7 @@ from player import *
 from asteroid import *
 from asteroidfield import *
 from shot import *
+from powerups import *
 import os
 
 def main_menu(in_main_menu, dt, info):

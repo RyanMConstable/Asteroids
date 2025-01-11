@@ -2,7 +2,7 @@ import pygame
 import random
 from asteroid import Asteroid
 from constants import *
-from armorpowerup import Armor
+from powerups import Armor
 
 
 class AsteroidField(pygame.sprite.Sprite):
