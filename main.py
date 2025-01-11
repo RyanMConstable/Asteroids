@@ -9,7 +9,9 @@ from asteroidfield import *
 from shot import *
 import os
 
-def main_menu(in_main_menu, dt):
+def main_menu(in_main_menu, dt, info):
+    print(info)
+    print("prev_score" in info)
     print("Entering main loop")
     #Create rect objects for play, quit, and the game title
     font = pygame.font.Font('freesansbold.ttf', 32)
@@ -18,6 +20,10 @@ def main_menu(in_main_menu, dt):
     titleRect = title.get_rect()
     titleRect.center = (SCREEN_WIDTH // 2, 250)
     
+    if "prev_score" in info:
+        score = font.render(f"Score: {info['prev_score']}", True, "black", "grey")
+        scoreRect = score.get_rect()
+        scoreRect.center = (SCREEN_WIDTH // 2, 350)
     
     #START AND QUIT BUTTONS
     start_img = pygame.image.load("images/start_button.png")
@@ -43,6 +49,8 @@ def main_menu(in_main_menu, dt):
         screen.fill("grey")
         #Print buttons to screen
         screen.blit(title, titleRect)
+        if "prev_score" in info:
+            screen.blit(score, scoreRect)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
@@ -114,11 +122,12 @@ def main(dt):
     clean_board = False
     in_main_menu = True
     gaming = True
+    menu_info = {}
     while gaming:
         
         #Main menu loop
         if in_main_menu:
-            in_main_menu, gaming = main_menu(in_main_menu, dt)
+            in_main_menu, gaming = main_menu(in_main_menu, dt, menu_info)
         
         
         #This is the main menu of the game
@@ -146,6 +155,7 @@ def main(dt):
         for item in asteroids:
             #Player collision with asteroid
             if player1.collision(item):
+                menu_info["prev_score"] = player1.score
                 end(player1.score)
                 in_main_menu = True
                 clean_board = True
@@ -169,6 +179,8 @@ def main(dt):
             player1.kill()
             player1 = player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
             clean_board = False
+            af.kill()
+            af = AsteroidField()
             
         dt = clock.tick(FPS) / 1000
         pygame.display.flip()
