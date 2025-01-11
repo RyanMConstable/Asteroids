@@ -10,6 +10,7 @@ from shot import *
 import os
 
 def main_menu(in_main_menu, dt, info):
+    SCREEN_WIDTH, SCREEN_HEIGHT = pygame.display.get_surface().get_size()
     print(info)
     print("prev_score" in info)
     print("Entering main loop")
@@ -86,6 +87,7 @@ def main_menu(in_main_menu, dt, info):
     return in_main_menu, game_loop
 
 def main(dt):
+    SCREEN_WIDTH, SCREEN_HEIGHT = pygame.display.get_surface().get_size()
     print("Starting asteroids!")
     print(f"Screen width: {SCREEN_WIDTH}")
     print(f"Screen height: {SCREEN_HEIGHT}")
