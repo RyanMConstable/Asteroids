@@ -100,12 +100,14 @@ def main(dt):
     drawable = pygame.sprite.Group()
     asteroids = pygame.sprite.Group()
     bullets = pygame.sprite.Group()
+    powerups = pygame.sprite.Group()
     
     #Create containers for classes
     player.containers = (drawable, updatable)
     Asteroid.containers = (drawable, updatable, asteroids)
     AsteroidField.containers = (updatable)
     Shot.containers = (updatable, drawable, bullets)
+    Armor.containers = (drawable, powerups)
     
     player1 = player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
     af = AsteroidField()
