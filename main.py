@@ -157,10 +157,13 @@ def main(dt):
         for item in asteroids:
             #Player collision with asteroid
             if player1.collision(item):
-                menu_info["prev_score"] = player1.score
-                end(player1.score)
-                in_main_menu = True
-                clean_board = True
+                if player1.armor == 0:
+                    player1.hp -= 1
+                    if player1.hp <= 0:
+                        menu_info["prev_score"] = player1.score
+                        end(player1.score)
+                        in_main_menu = True
+                        clean_board = True
             
             #Check for every bullet to see if any hit an asteroid
             for bullet in bullets:

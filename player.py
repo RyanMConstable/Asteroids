@@ -8,6 +8,8 @@ class player(CircleShape):
         self.rotation = 0
         self.shot_timer = 0
         self.score = 0
+        self.hp = 1
+        self.armor = 0
         
     # in the player class
     def triangle(self):
