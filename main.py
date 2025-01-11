@@ -158,7 +158,7 @@ def main(dt):
         for item in powerups:
             if player1.collision(item):
                 player1.armor += 1
-            item.kill()
+                item.kill()
                 
         #Check asteroid collision
         for item in asteroids:
@@ -173,6 +173,7 @@ def main(dt):
                         clean_board = True
                 else:
                     player1.armor -= 1
+                item.kill()
             
             #Check for every bullet to see if any hit an asteroid
             for bullet in bullets:
