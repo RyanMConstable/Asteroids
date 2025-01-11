@@ -190,7 +190,7 @@ def end(score):
 
 if __name__ == "__main__":
     pygame.init()
-    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
     pygame.display.set_caption('Asteroids!')
     clock = pygame.time.Clock()
     dt = 0
