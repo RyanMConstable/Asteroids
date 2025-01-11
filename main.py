@@ -109,6 +109,7 @@ def main(dt):
     AsteroidField.containers = (updatable)
     Shot.containers = (updatable, drawable, bullets)
     Armor.containers = (drawable, powerups)
+    FastBullet.containers = (drawable, powerups)
     
     player1 = player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
     af = AsteroidField()
@@ -160,6 +161,9 @@ def main(dt):
             if player1.collision(item):
                 if isinstance(item, Armor):
                     player1.armor += 1
+                if isinstance(item, FastBullet):
+                    player1.fast_shoot = True
+                    player1.power_up_timer = 4
                 item.kill()
                 
         #Check asteroid collision

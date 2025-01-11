@@ -2,7 +2,7 @@ import pygame
 import random
 from asteroid import Asteroid
 from constants import *
-from powerups import Armor
+from powerups import *
 
 
 class AsteroidField(pygame.sprite.Sprite):
@@ -40,8 +40,11 @@ class AsteroidField(pygame.sprite.Sprite):
         asteroid.velocity = velocity
     
     def spawnarmor(self, x, y):
-        armor = Armor(x, y)
-        armor.velocity = 0
+        armor = Armor(x, y).velocity = 0
+        
+    def spawnfastbullet(self, x, y):
+        fastbullet = FastBullet(x, y).velocity = 0
+        
 
     def update(self, dt):
         self.spawn_timer += dt
@@ -59,5 +62,6 @@ class AsteroidField(pygame.sprite.Sprite):
                 self.boss_timer -= 50
                 self.spawnarmor(random.randint(0, pygame.display.get_surface().get_size()[0]), random.randint(0, pygame.display.get_surface().get_size()[1]))
                 self.spawn(ASTEROID_BOSS_RADIUS, position, velocity, hp=5, color="red")
+                self.spawnfastbullet(random.randint(0, pygame.display.get_surface().get_size()[0]), random.randint(0, pygame.display.get_surface().get_size()[1]))
             else:
                 self.spawn(ASTEROID_MIN_RADIUS * kind, position, velocity)

@@ -10,6 +10,9 @@ class player(CircleShape):
         self.score = 0
         self.hp = 1
         self.armor = 0
+        #For a fast shooting powerup
+        self.fast_shoot = False
+        self.power_up_timer = 0
         
     # in the player class
     def triangle(self):
@@ -33,9 +36,16 @@ class player(CircleShape):
     def shoot(self):
         if self.shot_timer <= 0:
             Shot(self.position[0], self.position[1], self.rotation)
-            self.shot_timer = PLAYER_SHOOT_COOLDOWN
+            if self.fast_shoot:
+                self.shot_timer = .05
+            else:
+                self.shot_timer = PLAYER_SHOOT_COOLDOWN
         
     def update(self, dt):
+        self.power_up_timer -= dt
+        if self.power_up_timer < 0:
+            self.fast_shoot = False
+            
         keys = pygame.key.get_pressed()
         self.shot_timer -= dt
 
