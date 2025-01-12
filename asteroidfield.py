@@ -58,10 +58,14 @@ class AsteroidField(pygame.sprite.Sprite):
             velocity = velocity.rotate(random.randint(-30, 30))
             position = edge[1](random.uniform(0, 1))
             kind = random.randint(1, ASTEROID_KINDS)
+            armorchance = random.randint(0,35)
+            fastshotchance = random.randint(0,35)
             if self.boss_timer >= 50:
                 self.boss_timer -= 50
-                self.spawnarmor(random.randint(0, pygame.display.get_surface().get_size()[0]), random.randint(0, pygame.display.get_surface().get_size()[1]))
                 self.spawn(ASTEROID_BOSS_RADIUS, position, velocity, hp=5, color="red")
-                self.spawnfastbullet(random.randint(0, pygame.display.get_surface().get_size()[0]), random.randint(0, pygame.display.get_surface().get_size()[1]))
             else:
+                if fastshotchance == 1:
+                    self.spawnfastbullet(random.randint(0, pygame.display.get_surface().get_size()[0]), random.randint(0, pygame.display.get_surface().get_size()[1]))
+                if armorchance == 1:
+                    self.spawnarmor(random.randint(0, pygame.display.get_surface().get_size()[0]), random.randint(0, pygame.display.get_surface().get_size()[1]))
                 self.spawn(ASTEROID_MIN_RADIUS * kind, position, velocity)
