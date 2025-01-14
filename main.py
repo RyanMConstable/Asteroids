@@ -193,6 +193,7 @@ def main(dt):
                         item.split()
         
         if clean_board:
+            #Clean this up by iterating through all sprite groups
             for item in asteroids:
                 item.kill()
             for bullet in bullets:
