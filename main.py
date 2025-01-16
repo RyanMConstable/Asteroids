@@ -213,12 +213,14 @@ def end(score):
     print(f"Game over! You had a score of {score}!")
 
 if __name__ == "__main__":
+    #Initialize pygame for the main function
     pygame.init()
     screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
     pygame.display.set_caption('Asteroids!')
     clock = pygame.time.Clock()
     dt = 0
     
+    #Run the main function then after it returns quickly quit the display and exit the game
     main(dt)
     pygame.display.quit()
     pygame.quit()
